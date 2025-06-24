@@ -39,21 +39,34 @@ app.use("/api/inspection", inspectionRoute);
 app.use("/api/association", insCatAssociationRoute);
 app.use("/api/inspectionDetails", inspectionDetailsRoute);
 
-// Connect to the database and start the server only if successful
-// Start server after DB connection
-const startServer = async () => {
-  try {
-    await connectToDatabase();
-    const PORT = process.env.PORT || 1433;
-    app.listen(PORT, () => {
-      console.log(`✅ Server is running on port ${PORT}`);
-    });
-  } catch (err) {
-    console.error("❌ Failed to connect to the database:", err.message);
-    process.exit(1);
-  }
-};
 
-startServer();
+// Connect to the database
+connectToDatabase().catch((err) =>
+  console.error("❌ Failed to connect to the database:", err.message)
+);
+
+
+
 
 module.exports = app;
+
+
+
+
+
+
+
+// Connect to the database and start the server only if successful
+// Start server after DB connection
+// const startServer = async () => {
+//   try {
+//     await connectToDatabase();
+//     const PORT = process.env.PORT || 1433;
+//     app.listen(PORT, () => {
+//       console.log(`✅ Server is running on port ${PORT}`);
+//     });
+//   } catch (err) {
+//     console.error("❌ Failed to connect to the database:", err.message);
+//     process.exit(1);
+//   }
+// };
